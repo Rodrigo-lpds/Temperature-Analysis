@@ -31,6 +31,12 @@ Biblioteca **GDAL** responsável por manipular dados GeoEspaciais
 > conda install -c conda-forge gdal
 
 
+## Agora que todo o ambiente está configurado, execute o Tutorial_Rj.py e assim deve obter esta projeção abaixo:
+
+![RJ_G16_C13_28-Oct-2019_08_40_38](https://user-images.githubusercontent.com/56642493/89683869-b5507400-d8cf-11ea-8fdc-8f8b780b53c3.png)
+
+
+
 ## Créditos
 Script criado por mim: Rodrigo Lucas Pinto da Silva. [Github](https://github.com/Rodrigo-lpds) e [Linkedin](https://www.linkedin.com/in/rodrigo-lucas-pinto-da-silva-3684a8179/)
 
