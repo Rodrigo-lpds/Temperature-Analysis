@@ -28,7 +28,7 @@ import sys
 
 # Path to the GOES-16 image file
 #path = "..\\samples\\OR_ABI-L2-CMIPF-M6C13_G16_s20193010840381_e20193010850101_c20193010850198.nc"
-path = "..\\samples\\OR_ABI-L2-CMIPF-M6C13_G16_s20193010800381_e20193010810100_c20193010810207.nc"
+path = "../samples/OR_ABI-L2-CMIPF-M6C13_G16_s20193010800381_e20193010810100_c20193010810207.nc"
 # Open the file using the NetCDF4 library
 
 # Open the file using the NetCDF4 library

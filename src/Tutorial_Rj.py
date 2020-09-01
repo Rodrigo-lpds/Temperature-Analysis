@@ -26,7 +26,7 @@ from headerNetcdf import getBand,convertDate # Import band and convert date func
 # Load the Data =======================================================================================
 
 # Path to the GOES-16 image file
-path = "..\\samples\\OR_ABI-L2-CMIPF-M6C13_G16_s20193010840381_e20193010850101_c20193010850198.nc"
+path = "../samples/OR_ABI-L2-CMIPF-M6C13_G16_s20193010840381_e20193010850101_c20193010850198.nc"
 # Open the file using the NetCDF4 library
 nc = Dataset(path)
 #======================================================================================================
@@ -77,7 +77,7 @@ ax = plt.axis('off')
 bmap = Basemap(llcrnrlon=extent[0], llcrnrlat=extent[1], urcrnrlon=extent[2], urcrnrlat=extent[3], epsg=4326)
 
 # Draw the countries and Brazilian states shapefiles
-bmap.readshapefile('..\\shapefile\\BRA_adm1','BRA_adm1',linewidth=0.10,color='#000000')
+bmap.readshapefile('../shapefile/BRA_adm1','BRA_adm1',linewidth=0.10,color='#000000')
 
 # Draw parallels and meridians
 bmap.drawparallels(np.arange(-90.0, 90.0, 5), linewidth=0.3, dashes=[4, 4], color='white', labels=[True,False,False,True], fmt='%g', labelstyle="+/-", size=10)
@@ -89,8 +89,8 @@ tempAbove= masked_array(data,data<temp)
 tempBelow = masked_array(data,data>=temp)
 
 # Converts a CPT file to be used in Python
-cptRainbow = loadCPT('..\\colortable\\Rainbow.cpt')   
-cptSquareRoot = loadCPT('..\\colortable\\Square Root Visible Enhancement.cpt')
+cptRainbow = loadCPT('../colortable/Rainbow.cpt')   
+cptSquareRoot = loadCPT('../colortable/Square Root Visible Enhancement.cpt')
 
 # Makes a linear interpolation
 cpt_convert_SquareRoot = LinearSegmentedColormap('cpt', cptSquareRoot) 
