@@ -38,9 +38,10 @@ max_lon = float(geo_extent.geospatial_eastbound_longitude)
 min_lat = float(geo_extent.geospatial_southbound_latitude)
 max_lat = float(geo_extent.geospatial_northbound_latitude)
 
-# Rio de Janeiro as a Center of the projection
+# Bocaina as a Center of the projection
+degrees = 5
 # Choose the visualization extent (min lon, min lat, max lon, max lat)
-extent = [-55, -35.0, -30.0, -10.0]
+extent = [-45 - degrees ,-23.7 - degrees,-43.4 + degrees,-22.5 + degrees]
 
 # Choose the image resolution (the higher the number the faster the processing is)
 resolution = 2 
@@ -80,8 +81,8 @@ bmap = Basemap(llcrnrlon=extent[0], llcrnrlat=extent[1], urcrnrlon=extent[2], ur
 bmap.readshapefile('..\\shapefile\\BRA_adm1','BRA_adm1',linewidth=0.10,color='#000000')
 
 # Draw parallels and meridians
-bmap.drawparallels(np.arange(-90.0, 90.0, 5), linewidth=0.3, dashes=[4, 4], color='white', labels=[True,False,False,True], fmt='%g', labelstyle="+/-", size=10)
-bmap.drawmeridians(np.arange(0.0, 360.0, 5), linewidth=0.3, dashes=[4, 4], color='white', labels=[True,False,False,True], fmt='%g', labelstyle="+/-", size=10)
+#bmap.drawparallels(np.arange(-90.0, 90.0, 5), linewidth=0.3, dashes=[4, 4], color='white', labels=[True,False,False,True], fmt='%g', labelstyle="+/-", size=10)
+#bmap.drawmeridians(np.arange(0.0, 360.0, 5), linewidth=0.3, dashes=[4, 4], color='white', labels=[True,False,False,True], fmt='%g', labelstyle="+/-", size=10)
 
 #Split the dataset with temperatures above and below -20°C 
 temp = -20
@@ -101,12 +102,12 @@ plot_SquareRoot = bmap.imshow(tempAbove, origin='upper', cmap=cpt_convert_Square
 plot_Rainbow = bmap.imshow(tempBelow, origin='upper', cmap=cpt_convert_Rainbow, vmin=-80, vmax=-20) 
 
 # Insert the colorbar at the bottom
-cb = bmap.colorbar(location='right', size ='4.0%', pad = '8%')
-cb.outline.set_visible(False)   #   Remove the colorbar outline
-cb.ax.tick_params(width = 0)    #   Remove the colorbar ticks 
-cb.ax.yaxis.set_tick_params(pad=-4) # Put the colobar labels inside the colorbar
-cb.ax.yaxis.set_ticks_position('right') 
-cb.ax.tick_params(labelsize=10) 
+#cb = bmap.colorbar(location='right', size ='4.0%', pad = '8%')
+#cb.outline.set_visible(False)   #   Remove the colorbar outline
+#cb.ax.tick_params(width = 0)    #   Remove the colorbar ticks 
+#cb.ax.yaxis.set_tick_params(pad=-4) # Put the colobar labels inside the colorbar
+#cb.ax.yaxis.set_ticks_position('right') 
+#cb.ax.tick_params(labelsize=10) 
 
 # Converting from julian day to dd-mm-yyyy
 new_date =  convertDate(path)
@@ -128,15 +129,15 @@ lon_difference = (extent[2] - extent[0]) # Max Lon - Min Lon
 lat_difference = (extent[3] - extent[1]) # Max lat - Min lat
 
 #Labels and its positions
-plt.text(extent[0] + lon_difference * 0.5, extent[3] + lat_difference * 0.035,Title, horizontalalignment='center', color = 'black', size=15)
-plt.text(extent[0] + lon_difference * 0.5, extent[3] + lat_difference * 0.065," ", horizontalalignment='center', color = 'black', size=10)
-plt.text(extent[0] + lon_difference * 0.5, extent[1] - lat_difference * 0.075,Longitude, horizontalalignment='center',color = 'black', size=15)
-plt.text(extent[0] + lon_difference * 0.5, extent[1] - lat_difference * 0.15," ", horizontalalignment='center', color = 'black', size=18)    
-plt.text(extent[0] - lon_difference * 0.15, extent[1] + lat_difference * 0.5 ,Latitude, verticalalignment ='center', rotation = "vertical", color = 'black', size=15) 
-plt.text(extent[2] + lon_difference * 0.2, extent[1] + lat_difference * 0.5 ,ColorBarLabel, verticalalignment ='center', rotation = "vertical", color = 'black', size=15)
+#plt.text(extent[0] + lon_difference * 0.5, extent[3] + lat_difference * 0.035,Title, horizontalalignment='center', color = 'black', size=15)
+#plt.text(extent[0] + lon_difference * 0.5, extent[3] + lat_difference * 0.065," ", horizontalalignment='center', color = 'black', size=10)
+#plt.text(extent[0] + lon_difference * 0.5, extent[1] - lat_difference * 0.075,Longitude, horizontalalignment='center',color = 'black', size=15)
+#plt.text(extent[0] + lon_difference * 0.5, extent[1] - lat_difference * 0.15," ", horizontalalignment='center', color = 'black', size=18)    
+#plt.text(extent[0] - lon_difference * 0.15, extent[1] + lat_difference * 0.5 ,Latitude, verticalalignment ='center', rotation = "vertical", color = 'black', size=15) 
+#plt.text(extent[2] + lon_difference * 0.2, extent[1] + lat_difference * 0.5 ,ColorBarLabel, verticalalignment ='center', rotation = "vertical", color = 'black', size=15)
 
 
 # Save the result as a PNG
 time_saved = timeScan.replace(':','_')
-plt.savefig('RJ_G16_C' + str(Band) + '_' + date + '_' + time_saved + '.png', dpi=DPI, pad_inches=0, transparent=True,bbox_inches='tight')
+plt.savefig('RJ_G16_C' + str(Band) + '_' + date + '_' + time_saved + '.tif', dpi=DPI, pad_inches=0, transparent=True,bbox_inches='tight')
 plt.close()
