@@ -39,12 +39,13 @@ min_lat = float(geo_extent.geospatial_southbound_latitude)
 max_lat = float(geo_extent.geospatial_northbound_latitude)
 
 # Bocaina as a Center of the projection
-degrees = 5
+degrees = 0
 # Choose the visualization extent (min lon, min lat, max lon, max lat)
-extent = [-45 - degrees ,-23.7 - degrees,-43.4 + degrees,-22.5 + degrees]
+#extent = [-47 - degrees ,-25 - degrees,-42+ degrees,-20 + degrees] #Bocaina
+extent = [-44 - degrees ,-27 - degrees,-38+ degrees,-21 + degrees] #Regiao Norte Fluminense
 
 # Choose the image resolution (the higher the number the faster the processing is)
-resolution = 2 
+resolution = 0.8 #2
 
 # Calculate the image extent required for the reprojection
 H = nc.variables['goes_imager_projection'].perspective_point_height
@@ -59,9 +60,11 @@ grid = remap(path, extent, resolution,  x1, y1, x2, y2)
 # Read the data returned by the function ==============================================================
 # If it is an IR channel subtract 273.15 to convert to ° Celsius
 data = grid.ReadAsArray() - 273.15
+
 # Make pixels outside the footprint invisible
 data[data <= -180] = np.nan
 #======================================================================================================
+grid.GetRasterBand(1).WriteArray(data) # converte o grid para celsius
 
 # Define the size of the saved picture =================================================================
 DPI = 150
@@ -139,5 +142,5 @@ lat_difference = (extent[3] - extent[1]) # Max lat - Min lat
 
 # Save the result as a PNG
 time_saved = timeScan.replace(':','_')
-plt.savefig('RJ_G16_C' + str(Band) + '_' + date + '_' + time_saved + '.tif', dpi=DPI, pad_inches=0, transparent=True,bbox_inches='tight')
+plt.savefig('RJ_G16_C' + str(Band) + '_' + date + '_' + time_saved + '.png', dpi=DPI, pad_inches=0, transparent=True,bbox_inches='tight')
 plt.close()
