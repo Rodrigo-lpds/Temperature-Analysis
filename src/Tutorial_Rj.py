@@ -39,10 +39,10 @@ min_lat = float(geo_extent.geospatial_southbound_latitude)
 max_lat = float(geo_extent.geospatial_northbound_latitude)
 
 # Bocaina as a Center of the projection
-degrees = 5
+degrees = 0
 # Choose the visualization extent (min lon, min lat, max lon, max lat)
-extent = [-45 - degrees ,-23.7 - degrees,-43.4 + degrees,-22.5 + degrees]
-
+#extent = [-47 - degrees ,-25 - degrees,-42+ degrees,-20 + degrees] #Bocaina
+extent = [-44 - degrees ,-27 - degrees,-38+ degrees,-21 + degrees] #Regiao Norte Fluminense
 # Choose the image resolution (the higher the number the faster the processing is)
 resolution = 2 
 
@@ -62,7 +62,7 @@ data = grid.ReadAsArray() - 273.15
 # Make pixels outside the footprint invisible
 data[data <= -180] = np.nan
 #======================================================================================================
-
+grid.GetRasterBand(1).WriteArray(data) # converte o grid para celsius
 # Define the size of the saved picture =================================================================
 DPI = 150
 fig = plt.figure(figsize=(data.shape[1]/float(DPI), data.shape[0]/float(DPI)), frameon=False, dpi=DPI)
@@ -136,8 +136,6 @@ lat_difference = (extent[3] - extent[1]) # Max lat - Min lat
 #plt.text(extent[0] - lon_difference * 0.15, extent[1] + lat_difference * 0.5 ,Latitude, verticalalignment ='center', rotation = "vertical", color = 'black', size=15) 
 #plt.text(extent[2] + lon_difference * 0.2, extent[1] + lat_difference * 0.5 ,ColorBarLabel, verticalalignment ='center', rotation = "vertical", color = 'black', size=15)
 
-
-# Save the result as a PNG
-time_saved = timeScan.replace(':','_')
-plt.savefig('RJ_G16_C' + str(Band) + '_' + date + '_' + time_saved + '.tif', dpi=DPI, pad_inches=0, transparent=True,bbox_inches='tight')
-plt.close()
+# Export the result to GeoTIFF
+driver = gdal.GetDriverByName('GTiff')
+driver.CreateCopy('Channel_13.tif', grid, 0)
